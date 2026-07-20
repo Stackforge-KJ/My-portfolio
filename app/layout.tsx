@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
-import { bodyFont } from "@/lib/fonts";
+import { bodyFont, displayFont } from "@/lib/fonts";
 import { buildMetadata } from "@/lib/metadata";
 import "./globals.css";
 
-// Sprint 0 scope: root layout exists only to prove the wiring (font,
-// metadata, global stylesheet) works end-to-end. Navigation and footer
-// (per the Product Blueprint's layout components) are added in the sprint
-// that implements those components — not here.
+// Sprint 1 scope: this proves the font and metadata wiring works end to
+// end against the VDS's actual token infrastructure. Navigation and
+// Footer are real components (Product Blueprint Section 4) and belong to
+// the sprint that implements layout components — not this one.
 
 export const metadata: Metadata = buildMetadata({
   title: "Home",
-  description: "Sprint 0 project foundation — no content yet.",
+  description: "Sprint 1 design system foundation — no content yet.",
   path: "/",
 });
 
@@ -20,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={bodyFont.variable}>
+    <html lang="en" className={`${bodyFont.variable} ${displayFont.variable}`}>
       <body>{children}</body>
     </html>
   );

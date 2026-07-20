@@ -3,8 +3,112 @@
 @tailwind utilities;
 
 /*
- * Sprint 0 scope only: Tailwind's three layers, wired in and nothing else.
- * The VDS's design tokens (type scale, spacing scale, color roles, the
- * single accent) are added as CSS variables / Tailwind theme extensions
- * in a later sprint — see tailwind.config.ts for the same note.
+ * VDS Section 5 color tokens, as CSS variables consumed by
+ * tailwind.config.ts. Both themes are built from the same token
+ * structure (surface, ink, one accent, semantic colors) so a component
+ * never has to conditionally branch on which theme is active — only the
+ * variable values differ between :root and .dark.
+ *
+ * Values are space-separated R G B triples (no `rgb()` wrapper) so
+ * Tailwind's `rgb(var(--x) / <alpha-value>)` pattern can apply opacity
+ * modifiers (e.g. bg-surface/80) without a second set of tokens.
  */
+:root {
+  /* Light theme — near-white surface, near-black ink; neither pure,
+     per the VDS's explicit rejection of true #fff/#000 (Section 5). */
+  --color-surface: 250 250 248;
+  --color-surface-secondary: 243 243 240;
+  --color-ink: 22 24 29;
+  --color-ink-muted: 91 98 112;
+  --color-accent: 47 92 255;
+  --color-on-accent: 255 255 255;
+  --color-success: 61 122 89;
+  --color-warning: 163 116 45;
+  --color-error: 178 58 58;
+}
+
+.dark {
+  /* Dark theme — near-black surface, near-white ink; same roles,
+     same single accent (identical value, not just similar), per the
+     VDS's "not a filter" requirement — a component reading --color-accent
+     gets literally the same blue whether the visitor is in light or dark
+     mode. It tests well against both surface colors as-is, so no
+     per-theme adjustment was needed. */
+  --color-surface: 16 17 20;
+  --color-surface-secondary: 24 26 30;
+  --color-ink: 237 238 240;
+  --color-ink-muted: 154 161 173;
+  --color-accent: 47 92 255;
+  --color-on-accent: 255 255 255;
+  --color-success: 110 191 154;
+  --color-warning: 214 165 90;
+  --color-error: 224 122 122;
+}
+
+/*
+ * Reset: intentionally not re-implemented here. `@tailwind base` above
+ * already loads Tailwind's Preflight, which removes default margins,
+ * sets border-box sizing, and normalizes headings/lists/form elements —
+ * writing a second reset on top would duplicate it, not improve it.
+ */
+
+/*
+ * Typography defaults, kept deliberately minimal: the two typefaces and
+ * the surface/ink colors, applied once at the root rather than repeated
+ * per component.
+ */
+body {
+  @apply bg-surface font-body text-body text-ink;
+}
+
+/* VDS Section 2: display type (headings) uses the serif, tight letter-
+   spacing, and the single semibold weight — never the body sans, and
+   never a heavier weight reached for ad hoc. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-display font-semibold tracking-tight;
+}
+
+/*
+ * Selection — VDS's restraint principle applied to a detail almost no one
+ * consciously notices: an accent-tinted highlight instead of the
+ * browser's harsh default blue, at low opacity so selected text stays
+ * legible rather than inverted.
+ */
+::selection {
+  background-color: rgb(var(--color-accent) / 0.25);
+  color: rgb(var(--color-ink));
+}
+
+/*
+ * Focus — VDS Section 12 / EIP Section 10: a visible, accent-colored
+ * focus state on every interactive element, applied globally so it can
+ * never be accidentally skipped component by component. `:focus-visible`
+ * (not `:focus`) so it appears for keyboard navigation without adding a
+ * ring to every mouse click.
+ */
+:focus-visible {
+  outline: 2px solid rgb(var(--color-accent));
+  outline-offset: 2px;
+}
+
+/*
+ * Motion safety net — VDS Section 10 / PRD Section 10.2: every animation
+ * a later sprint adds must already respect this without remembering to
+ * check for it individually. Anyone with prefers-reduced-motion enabled
+ * gets near-instant, non-animated state changes site-wide by default.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
