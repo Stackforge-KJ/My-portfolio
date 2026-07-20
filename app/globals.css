@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Sprint 0 scope only: Tailwind's three layers, wired in and nothing else.
+ * The VDS's design tokens (type scale, spacing scale, color roles, the
+ * single accent) are added as CSS variables / Tailwind theme extensions
+ * in a later sprint — see tailwind.config.ts for the same note.
+ */
