@@ -36,7 +36,7 @@ const twMerge = extendTailwindMerge({
         "text-warning",
         "text-error",
       ],
-      "background-color": [
+      "bg-color": [
         "bg-surface",
         "bg-surface-secondary",
         "bg-ink",

@@ -15,7 +15,7 @@ const config: Config = {
   content: [
     "./app/**/*.{ts,tsx,mdx}",
     "./components/**/*.{ts,tsx}",
-    "./content/**/*.{mdx}",
+    "./content/**/*.mdx",
   ],
   theme: {
     // Screens (EIP Section 19): the VDS's three named responsive contexts
