@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { Heading } from "@/components/primitives/Heading";
+import { Text } from "@/components/primitives/Text";
 import { buildMetadata } from "@/lib/metadata";
 
 // Sprint 0 placeholder route. Real case studies live as MDX files under
@@ -33,5 +35,12 @@ export async function generateMetadata({
 export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
   const { slug } = await params;
 
-  return <p>Case study &ldquo;{slug}&rdquo; — Sprint 0 placeholder.</p>;
+  return (
+    <main className="flex flex-col gap-4 px-6 py-16">
+      <Heading level={1}>Case study</Heading>
+      <Text size="body" muted>
+        Case study &ldquo;{slug}&rdquo; — Sprint 0 placeholder.
+      </Text>
+    </main>
+  );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Link } from "@/components/primitives/Link";
 import { cn } from "@/lib/cn";
@@ -59,6 +59,7 @@ export function Navigation({
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMaterialized, setIsMaterialized] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     function handleScroll() {
@@ -68,6 +69,26 @@ export function Navigation({
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Sprint 9: Escape closes the mobile menu and returns focus to the
+  // button that opened it — the standard disclosure-widget keyboard
+  // pattern (WAI-ARIA Authoring Practices). This is not a full focus
+  // trap; the menu is a simple inline disclosure, not a modal, so a trap
+  // isn't required — only a way to close it without a mouse and without
+  // losing your place.
+  useEffect(() => {
+    if (!isMobileMenuOpen) return;
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setIsMobileMenuOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isMobileMenuOpen]);
 
   return (
     <nav
@@ -117,6 +138,7 @@ export function Navigation({
           </Link>
 
           <button
+            ref={menuButtonRef}
             type="button"
             aria-expanded={isMobileMenuOpen}
             aria-controls="mobile-nav-menu"

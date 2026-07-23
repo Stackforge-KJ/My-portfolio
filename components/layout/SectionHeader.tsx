@@ -16,6 +16,15 @@ export interface SectionHeaderProps {
    * below a page's h1) but any real usage should pass its actual level.
    */
   headingLevel?: HeadingLevel;
+  /**
+   * Sprint 9 addition: forwarded to the underlying Heading (which already
+   * accepts `id` via HTMLAttributes passthrough — no change needed there).
+   * Lets a wrapping <section> reference this heading via
+   * `aria-labelledby`, turning it into a properly named landmark region
+   * for screen-reader navigation. Optional and additive; every existing
+   * call site without an id renders exactly as before.
+   */
+  id?: string;
   className?: string;
 }
 
@@ -31,6 +40,7 @@ export function SectionHeader({
   title,
   supportingText,
   headingLevel = 2,
+  id,
   className,
 }: SectionHeaderProps) {
   return (
@@ -40,7 +50,7 @@ export function SectionHeader({
           {eyebrow}
         </Text>
       ) : null}
-      <Heading level={headingLevel} size="3xl">
+      <Heading id={id} level={headingLevel} size="3xl">
         {title}
       </Heading>
       {supportingText ? (

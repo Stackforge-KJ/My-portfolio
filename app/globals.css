@@ -23,22 +23,38 @@
   --color-accent: 47 92 255;
   --color-on-accent: 255 255 255;
   --color-success: 61 122 89;
-  --color-warning: 163 116 45;
+  /* Corrected during Sprint 9's contrast review: the original value
+     (163 116 45) measured 3.95:1 against this surface, failing WCAG AA
+     for normal text (4.5:1) — it only passed the lower large-text/UI
+     threshold. Not currently used by any component, but wrong is wrong;
+     fixed here so it's correct before anything reaches for it. */
+  --color-warning: 151 106 39;
   --color-error: 178 58 58;
 }
 
 .dark {
-  /* Dark theme — near-black surface, near-white ink; same roles,
-     same single accent (identical value, not just similar), per the
-     VDS's "not a filter" requirement — a component reading --color-accent
-     gets literally the same blue whether the visitor is in light or dark
-     mode. It tests well against both surface colors as-is, so no
-     per-theme adjustment was needed. */
+  /* Dark theme — near-black surface, near-white ink; same roles as
+     light, but the accent below is NOT identical to light's — see that
+     line's own comment. Sprint 9's contrast review found the original
+     "one identical value in both themes" approach failed WCAG AA when
+     used as text on this darker surface; surface/ink/muted still didn't
+     need per-theme adjustment, only the accent did. */
   --color-surface: 16 17 20;
   --color-surface-secondary: 24 26 30;
   --color-ink: 237 238 240;
   --color-ink-muted: 154 161 173;
-  --color-accent: 47 92 255;
+  /* Corrected during Sprint 9's contrast review: the code comment this
+     replaced claimed the light-theme accent value (47 92 255) "tests
+     well against both surface colors as-is" — it does not. Measured as
+     text directly on this dark surface (Navigation's active-link state
+     uses exactly this), it comes out to 3.68:1, failing WCAG AA-normal
+     (4.5:1). This corrected value passes at 4.53:1, same hue, lightened.
+     Known limitation: white button-label text on this corrected value
+     measures 4.17:1 — just under the strict normal-text threshold,
+     though still above the 3:1 large-text/UI-component threshold. A
+     second, button-specific accent token would resolve that fully but is
+     a larger change than this sprint's contrast-review scope covers. */
+  --color-accent: 66 113 255;
   --color-on-accent: 255 255 255;
   --color-success: 110 191 154;
   --color-warning: 214 165 90;

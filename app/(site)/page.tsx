@@ -7,6 +7,7 @@ import { SectionHeader } from "@/components/layout/SectionHeader";
 import { Badge } from "@/components/primitives/Badge";
 import { Heading } from "@/components/primitives/Heading";
 import { Link } from "@/components/primitives/Link";
+import { ScrollReveal } from "@/components/primitives/ScrollReveal";
 import { Text } from "@/components/primitives/Text";
 import { buildMetadata } from "@/lib/metadata";
 
@@ -68,58 +69,78 @@ export default function HomePage() {
       />
 
       <section className="flex flex-col gap-4 px-6 py-12">
-        <Text size="lg">
-          I&rsquo;m a full-stack engineer who likes taking a product from a rough idea to
-          something real people use — and I&rsquo;m building toward leading a company that
-          does the same at scale.
-        </Text>
-        <Link href="/about">More about me</Link>
+        <ScrollReveal className="flex flex-col gap-4">
+          <Text size="lg">
+            I&rsquo;m a full-stack engineer who likes taking a product from a rough idea
+            to something real people use — and I&rsquo;m building toward leading a company
+            that does the same at scale.
+          </Text>
+          <Link href="/about">More about me</Link>
+        </ScrollReveal>
       </section>
 
-      <section id="selected-work" className="flex flex-col gap-8 px-6 py-12">
-        <SectionHeader title="Selected work" />
-        <div className="grid grid-cols-1 gap-6 tablet:grid-cols-3">
-          {SELECTED_WORK.map((project) => (
-            <Card key={project.href} href={project.href}>
-              <Heading level={3} size="xl">
-                {project.title}
-              </Heading>
-              <Text size="body" muted className="mt-2">
-                {project.summary}
-              </Text>
-            </Card>
-          ))}
-        </div>
+      <section
+        id="selected-work"
+        aria-labelledby="selected-work-heading"
+        className="flex flex-col gap-8 px-6 py-12"
+      >
+        <ScrollReveal className="flex flex-col gap-8">
+          <SectionHeader id="selected-work-heading" title="Selected work" />
+          <div className="grid grid-cols-1 gap-6 tablet:grid-cols-3">
+            {SELECTED_WORK.map((project) => (
+              <Card key={project.href} href={project.href}>
+                <Heading level={3} size="xl">
+                  {project.title}
+                </Heading>
+                <Text size="body" muted className="mt-2">
+                  {project.summary}
+                </Text>
+              </Card>
+            ))}
+          </div>
+        </ScrollReveal>
       </section>
 
-      <section className="flex flex-col gap-8 px-6 py-12">
-        <SectionHeader title="Experience" />
-        <ol className="flex flex-col gap-8">
-          {EXPERIENCE.map((entry) => (
-            <TimelineEntry key={entry.organization} {...entry} />
-          ))}
-        </ol>
+      <section
+        aria-labelledby="experience-heading"
+        className="flex flex-col gap-8 px-6 py-12"
+      >
+        <ScrollReveal className="flex flex-col gap-8">
+          <SectionHeader id="experience-heading" title="Experience" />
+          <ol className="flex flex-col gap-8">
+            {EXPERIENCE.map((entry) => (
+              <TimelineEntry key={entry.organization} {...entry} headingLevel={3} />
+            ))}
+          </ol>
+        </ScrollReveal>
       </section>
 
-      <section className="flex flex-col gap-8 px-6 py-12">
-        <SectionHeader title="Skills" />
-        <ul className="flex flex-wrap gap-3">
-          {SKILLS.map((skill) => (
-            <li key={skill}>
-              <Badge>{skill}</Badge>
-            </li>
-          ))}
-        </ul>
+      <section
+        aria-labelledby="skills-heading"
+        className="flex flex-col gap-8 px-6 py-12"
+      >
+        <ScrollReveal className="flex flex-col gap-8">
+          <SectionHeader id="skills-heading" title="Skills" />
+          <ul className="flex flex-wrap gap-3">
+            {SKILLS.map((skill) => (
+              <li key={skill}>
+                <Badge>{skill}</Badge>
+              </li>
+            ))}
+          </ul>
+        </ScrollReveal>
       </section>
 
       <section className="px-6 py-12">
-        <HomeContactCta
-          heading="Let's talk"
-          supportingText="If you're building something ambitious and think I could help, I'd like to hear about it."
-          ctaLabel="Get in touch"
-          secondaryLabel="Connect on LinkedIn"
-          secondaryHref="https://www.linkedin.com/in/your-profile"
-        />
+        <ScrollReveal>
+          <HomeContactCta
+            heading="Let's talk"
+            supportingText="If you're building something ambitious and think I could help, I'd like to hear about it."
+            ctaLabel="Get in touch"
+            secondaryLabel="Connect on LinkedIn"
+            secondaryHref="https://www.linkedin.com/in/your-profile"
+          />
+        </ScrollReveal>
       </section>
     </main>
   );
