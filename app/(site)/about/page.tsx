@@ -12,24 +12,27 @@ export const metadata: Metadata = buildMetadata({
   path: "/about",
 });
 
-// As with Home, most of the copy below is placeholder pending real
-// Content System deliverables (Section 4's Founder Story Framework in
-// particular — the BOS's own founder-ambition and brand-story
-// placeholders are still unresolved). Two exceptions: the "How I think"
-// paragraph condenses the BOS's already-approved Personal Philosophy
-// (Section 4), and the ambition paragraph paraphrases the BOS's already-
-// approved Vision (Section 3) — both real, locked content, not invented
-// for this page.
+// Sprint 7 note, updated in Sprint 10: the intro and "What I'm building
+// toward" now use the BOS's actual approved Manifesto (Section 1) and
+// Vision (Section 3) text rather than paraphrase or invented career
+// claims. "How I think" was already a faithful condensation of the BOS's
+// approved Personal Philosophy (Section 4) since Sprint 7 and is
+// unchanged. A "current focus" line that previously appeared here was
+// removed — no documentation states what the site owner is actually
+// working on right now, and inventing one would be exactly the kind of
+// fabrication this sprint's rules forbid. The founder-ambition statement
+// itself is present (from BOS Vision); the BOS's own two flagged
+// placeholders (a specific founder-ambition memory, a specific brand-
+// story memory) remain genuinely unresolved and are not fabricated here.
 export default function AboutPage() {
   return (
     <main className="flex flex-col gap-12 px-6 py-16">
       <Heading level={1}>About</Heading>
 
       <Text size="lg">
-        I&rsquo;ve spent my career moving from curiosity about how software works toward
-        taking full ownership of products end to end. These days I care less about any one
-        language or framework and more about whether what I ship actually solves the
-        problem it was meant to.
+        I believe building is an act of respect — for the user&rsquo;s time, for the
+        problem&rsquo;s difficulty, and for the truth that most ideas are worthless until
+        someone does the unglamorous work of shipping them.
       </Text>
 
       <section aria-labelledby="how-i-think-heading" className="flex flex-col gap-4">
@@ -50,12 +53,11 @@ export default function AboutPage() {
           <SectionHeader id="building-toward-heading" title="What I'm building toward" />
           <Text size="body">
             Long-term, I want to found and lead a technology company whose products are
-            used by millions of people — not as a vanity metric, but because reaching that
-            many people is the clearest evidence a product solved something real.
-          </Text>
-          <Text size="body" muted>
-            Right now, I&rsquo;m focused on shipping the case studies on this site and
-            sharpening how I explain technical decisions to non-technical audiences.
+            used by millions of people — not as a measure of ego, but because reaching
+            that many people is the clearest evidence a product solved something real,
+            well enough that adoption compounded on its own. I want to build an
+            organization where engineering and product thinking are treated as one
+            discipline, not two departments that negotiate with each other.
           </Text>
         </ScrollReveal>
       </section>

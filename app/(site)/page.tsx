@@ -18,13 +18,13 @@ export const metadata: Metadata = buildMetadata({
   path: "/",
 });
 
-// Every string below is placeholder/example content. Real copy is the
-// Content System's job (Sections 2–4) and hasn't been produced yet — the
-// Hero's title and subtitle are the one exception, reusing the BOS's
-// already-approved anchor line and mission statement verbatim/paraphrased
-// rather than inventing new marketing copy. Everything else here exists
-// to prove the Product Blueprint's Home section inventory assembles
-// correctly against real components and real tokens, not to be final.
+// Sprint 6 note, updated in Sprint 10: most strings below are still
+// placeholder/example content — real project names, employment history,
+// and contact details don't exist in any governing document and were
+// never provided, so none were invented (Sprint 10's explicit rule).
+// Three exceptions are real: the Hero's title and subtitle (the BOS's
+// approved anchor line and Mission statement) and the Skills list
+// (this project's own actual, verifiable stack).
 const SELECTED_WORK = [
   {
     title: "Example project one",
@@ -58,14 +58,20 @@ const EXPERIENCE = [
   },
 ];
 
-const SKILLS = ["TypeScript", "React", "Next.js", "Node.js", "PostgreSQL"];
+// Sprint 10 content audit: this list is limited to technologies that are
+// objectively true of this project itself (its own stack), not a claim
+// about the site owner's full professional skill set, which no
+// documentation has ever specified. Node.js and PostgreSQL were removed
+// here — nothing in this project touches a backend or a database, so
+// listing them would have been fabrication, not placeholder.
+const SKILLS = ["TypeScript", "React", "Next.js", "Tailwind CSS"];
 
 export default function HomePage() {
   return (
     <main>
       <Hero
         title="Software is judgment, not just code."
-        subtitle="I build software products with the rigor of an engineer and the judgment of a founder — and I'm making that combination visible through the work itself."
+        subtitle="I build software products with the rigor of an engineer and the judgment of a founder, and I make that combination visible through the work itself — not through claims about it."
       />
 
       <section className="flex flex-col gap-4 px-6 py-12">
